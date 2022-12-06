@@ -1,0 +1,19 @@
+<div class='auth-container'>
+  <div class='auth-form'>
+    <img class='auth-icon' src="assets/favicon.jpg"/>
+
+    <!--
+    <div class='auth-hello'>
+      Пожалуйста, авторизуйтесь для участия в опросе.
+    </div>
+    -->
+    
+    <input on-keydown='hideError()' [(ngModel)]="login" placeholder='Логин' name='login' type='text'/>
+    <input on-keydown='hideError()' [(ngModel)]="password" placeholder='Пароль' name='password' type='password'/>
+    <div *ngIf='errorMessage' class='auth-error'>{{errorMessage}}</div>
+    <div class={{unhoverable}} on-click='validateAndLogin()' name='submit' type='submit'>
+      <div class='auth-preloader' *ngIf="isLoading; else btnText"><img src='assets/preloader.png'/></div>
+      <ng-template #btnText>Войти</ng-template>
+    </div>
+  </div>
+</div>

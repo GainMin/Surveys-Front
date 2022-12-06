@@ -1,0 +1,16 @@
+<div class='admin-panel'>
+  <div class='admin-panel-main'>
+    <img src='assets/home.png' on-click="redirect('MainPage')">
+  </div>
+  <div class='admin-panel-cred'>
+    <div *ngIf="currentUser" class='admin-panel-name'>
+      {{currentUser.FullName}}
+    </div>
+    <div class='admin-panel-tools'>
+      <div class='admin-panel-settings'>
+        <img title='Параметры опросов' on-click="redirect('Settings')" src='assets/settings.png'/>
+        <img title='Статистика' on-click="redirect('Statistics')" src='assets/statistics.png'/>
+      </div>
+    </div>
+  </div>
+</div>

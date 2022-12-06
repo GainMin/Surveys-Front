@@ -1,0 +1,26 @@
+<div class='settings-question-editor'>
+
+  <label for='Title'>Текст вопроса</label>
+  <input [(ngModel)]="tempQuestion.Title" type='text' name='Title'/>
+
+  <label for='Addition'>Комментарий к вопросу</label>
+  <input [(ngModel)]="tempQuestion.Addition" type='text' name='Addition'/>
+
+  <label for='Type'>Тип вопроса</label>
+  <select [(ngModel)]="tempQuestion.Type" name='Type'>
+    <option *ngIf='!tempQuestion.Type' selected value=''></option>
+    <ng-container *ngFor='let option of typeOptions'>
+      <option value={{option}} [attr.selected]='tempQuestion.Type===option ? "selected" : false' >{{option}}</option>
+    </ng-container>
+  </select>
+
+  <div *ngIf='tempQuestion.Type !== "Текст"' class='settings-question-editor'>
+      <div *ngIf='["Выбор (1 вариант)", "Выбор (несколько вариантов)", "Выбор (шкала оценок)"].includes(tempQuestion.Type)'>
+        <label for='Configuration'>Укажите варианты ответов через ";" <span class='settings-question-addition' *ngIf='tempQuestion.Type === "Выбор (шкала оценок)"'><br>(каждому варианту во время ответа можно будет назначить стоимость от 1 до n)</span></label>
+        <textarea [(ngModel)]='tempQuestion.Settings' name='Configuration'></textarea>
+      </div>
+  </div>
+
+  <div on-click='saveQuestion()' class='settings-question-submit'>Сохранить вопрос в кэше</div>
+
+</div>

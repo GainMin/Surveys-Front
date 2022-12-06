@@ -1,0 +1,62 @@
+<div class='statistics-container'>
+  <div class='statistics-content'>
+      <div class='statistics-sidebar'>
+        <div class='statistics-surveys-list'>
+          <div *ngFor="let survey of allSurveys; let i = index" [ngClass]='{
+            "statistics-surveys-item": true,
+            "active-survey-item": activeSurvey && allSurveys[i].ID === activeSurvey.ID
+          }' on-click="setActiveSurvey(i)">
+            {{survey.Title}}
+          </div>
+        </div>
+      </div>
+      <div class='statistics-panel'>
+        <div class='statistics-header'>Статистика</div>
+        <div *ngIf='activeSurvey' class='statistics-data'>
+          <div class='statistics-number'>Всего ответов: <span>{{currentAnswers.length}}</span></div>
+          <div *ngFor='let question of activeSurvey.Questions; let i = index' class='statistics-question-container'>
+            <div class='statistics-question-title'>
+              {{i + 1}}. {{question.Title}}
+            </div>
+            <div class='statistics-question-body'>
+              <div class='statistics-question-text' *ngIf='question.Type === "Текст"'>
+                <div *ngFor='let answer of currentAnswers' class='statistics-question-text-item'>
+                  {{answer.Answers[question.ID].Data}}
+                </div>
+              </div>
+              <ng-container *ngIf='question.Type === "Выбор (1 вариант)"'>
+                <canvas width='50vw' baseChart class="chart"
+                  [datasets]="barData[question.ID]"
+                  [labels]="barLabels[question.ID]"
+                  [options]="barChartOptions"
+                  [type]="defaultOptionsForCharts.barChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+                </canvas>
+              </ng-container>
+              <ng-container width='50vw' *ngIf='question.Type === "Выбор (несколько вариантов)"'>
+                <canvas baseChart class="chart"
+                  [datasets]="barData[question.ID]"
+                  [labels]="barLabels[question.ID]"
+                  [options]="barChartOptions"
+                  [type]="defaultOptionsForCharts.barChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+                </canvas>
+              </ng-container>
+              <ng-container width='50vw' *ngIf='question.Type === "Выбор (шкала оценок)"'>
+                <canvas  baseChart class="chart"
+                  [datasets]="barData[question.ID]"
+                  [labels]="barLabels[question.ID]"
+                  [options]="barChartOptions"
+                  [type]="defaultOptionsForCharts.barChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+                </canvas>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

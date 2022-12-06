@@ -1,0 +1,18 @@
+.wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.main-page-wrapper {
+  overflow-y: scroll;
+  position: relative;
+  top: 35px;
+  height: calc(100vh - 35px);
+}
+
+.admin-panel-wrapper {
+  position: fixed;
+  width: 100vw;
+  z-index: 2;
+}

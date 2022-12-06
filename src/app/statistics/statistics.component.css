@@ -1,0 +1,124 @@
+
+.statistics-container {
+  width: 100%;
+  height: 100%;
+}
+
+.statistics-content {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.statistics-navigation {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  position: fixed;
+  width: calc(100% - 17px);
+  z-index: 15;
+}
+
+.statistics-nav-item {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 10px;
+  box-sizing: border-box;
+  margin-right: -1px;
+  cursor: pointer;
+  background-color: white;
+  font-weight: bold;
+}
+
+.statistics-nav-item:last-child {
+  margin: 0;
+}
+
+.statistics-nav-item:not(.active-statistics-tab):hover {
+
+}
+
+.active-statistics-tab {
+  background-color: #0049a5;
+  color: white;
+}
+
+.statistics-sidebar {
+  height: calc(100vh - 65px);
+  width: 30%;
+  max-width: 200px;
+  background-color: rgb(250, 250, 250);
+  padding-top: 30px;
+}
+
+.statistics-surveys-list {
+
+}
+
+.statistics-surveys-item {
+  border: 1px solid rgb(250, 250, 250);
+  border-left-width: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.active-survey-item {
+  background-color: white;
+  background-color: #0064e3;
+  color: white;
+  padding: 20px 10px;
+}
+
+.statistics-surveys-item:not(.active-survey-item):hover {
+  cursor: pointer;
+  border-left: 4px solid #0064e3;
+}
+
+.statistics-panel {
+  padding: 30px;
+  box-sizing: border-box;
+  width: 70%;
+}
+
+.statistics-header {
+  font-size: 28px;
+  font-family: Hauss;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+.statistics-number {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.statistics-number span {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.statistics-question-title {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.statistics-question-body {
+  margin-top: 10px;
+}
+
+.statistics-question-text {
+  overflow-y: scroll;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.statistics-question-text-item {
+  padding: 10px;
+  box-sizing: border-box;
+  width: 45%;
+  border: 1px solid rgb(240, 240, 240);
+}

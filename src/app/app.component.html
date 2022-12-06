@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <ng-container *ngIf="currentPage === 'Auth'">
+    <app-auth (onLogIn)="redirect($event)" [redirectPage]="redirectPage"></app-auth>
+  </ng-container>
+  <ng-container>
+      <div class='admin-panel-wrapper' *ngIf="currentPage !== 'Auth'">
+        <app-admin-panel [currentPage]="currentPage" (onElClick)="redirect($event)" [currentUser]='currentUser'></app-admin-panel>
+      </div>
+      <div class='main-page-wrapper'>
+        <ng-container *ngIf="currentPage === 'MainPage'">
+          <app-mainpage [currentUser]='currentUser'></app-mainpage>
+        </ng-container>
+        <ng-container *ngIf="currentPage === 'Settings'">
+          <app-settings [currentUser]='currentUser'></app-settings>
+        </ng-container>
+        <ng-container *ngIf="currentPage === 'Statistics'">
+          <app-statistics [currentUser]='currentUser'></app-statistics>
+        </ng-container>
+      </div>
+  </ng-container>
+</div>

@@ -1,0 +1,73 @@
+<div class='mainpage-container'>
+  <div class='mainpage-title'>
+    Сервис опросов
+  </div>
+  <div *ngIf='!isLoaded' class='mainpage-loading'>
+    <img src='assets/preloader-blue.png'/>
+  </div>
+  <ng-container *ngIf='isLoaded'>
+    <ng-container *ngIf='!answered'>
+      <div *ngIf='!activeSurvey' class='mainpage-message'>
+        Сейчас не проводится никаких опросов.<br>
+        Может быть стоит попросить организатора активировать один? 😄
+      </div>
+      <div *ngIf='activeSurvey' class='mainpage-survey'>
+        <ng-container>
+          <div class='mainpage-survey-general'>
+            <div class='mainpage-survey-name'>
+              <span class='mainpage-survey-name-name'>{{activeSurvey.data.Title}}</span>
+            </div>
+            <div class='mainpage-survey-desc'>
+              Описание:
+              <span class='mainpage-survey-desc-desc'>{{activeSurvey.data.Description}}</span>
+            </div>
+          </div>
+          <div *ngIf='!isAnswering' on-click='startSurvey()' class='mainpage-survey-go'>Пройти</div>
+          <div *ngIf='isAnswering' class='mainage-survey-body'>
+            <div *ngFor='let question of activeSurvey.questions; let globalIndex = index' class='mainpage-survey-question'>
+              <div class='mainpage-question-title'>{{globalIndex + 1}}. {{question.Title}}</div>
+              <div class='mainpage-question-addition'>{{question.Addition}}</div>
+              <div class='mainpage-question-body'>
+                <!--ТЕКСТ-->
+                <textarea [(ngModel)]='tempAnswers[globalIndex]' on-keyup='updateAnswerState(globalIndex, $event, "Текст")' on-change='updateAnswerState(globalIndex, $event, "Текст")' *ngIf='question.Type === "Текст"'></textarea>
+
+                <!--Выбор (1 вариант)-->
+                <div class='mainpage-question-input-group' *ngIf='question.Type === "Выбор (1 вариант)"'>
+                  <label *ngFor='let option of question.Settings.split(";")'><input [(ngModel)]='tempAnswers[globalIndex]' on-change='updateAnswerState(globalIndex, $event, "Выбор (1 вариант)")' value='{{option}}' type='radio' name='question.Title'/>{{option}}</label>
+                </div>
+
+                <!--Выбор (несколько вариантов)-->
+                <div class='mainpage-question-input-group' *ngIf='question.Type === "Выбор (несколько вариантов)"'>
+                  <label *ngFor='let option of question.Settings.split(";")'><input [checked]='tempAnswers[globalIndex] ? tempAnswers[globalIndex].indexOf(option) > -1 : false' on-change='updateAnswerState(globalIndex, $event, "Выбор (несколько вариантов)")' value='{{option}}' type='checkbox' name='question.Title'/>{{option}}</label>
+                </div>
+
+                <!--Выбор (шкала оценок)-->
+                <div class='mainpage-question-input-group' *ngIf='question.Type === "Выбор (шкала оценок)"'>
+                  <table class='mainpage-question-evaluate'>
+                    <tr>
+                      <th></th>
+                      <th *ngFor='let option of question.Settings.split(";"); let i = index'>{{i + 1}}</th>
+                    </tr>
+                    <tr *ngFor='let option of question.Settings.split(";")'>
+                      <td>{{option}}</td>
+                      <td *ngFor='let o of question.Settings.split(";"); let i = index'>
+                        <label><input value='{{i + 1}}' on-change='updateAnswerState(globalIndex, $event, "Выбор (шкала оценок)")' [(ngModel)]='tempAnswers[globalIndex][option]' name='{{option}}' type='radio'/></label>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div *ngIf='questionsAnswered[globalIndex]' class='mainpage-question-done'>✓</div>
+              </div>
+            </div>
+            <div on-click='submitSurvey()' class='mainpage-survey-go'>Сохранить ответы</div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf='answered'>
+      <div class='mainpage-message'>
+        Большое спасибо за ответ! 😄
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

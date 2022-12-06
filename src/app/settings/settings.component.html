@@ -1,0 +1,87 @@
+<div class='settings-container'>
+  <div class='settings-content'>
+      <div class='settings-sidebar'>
+        <div class='settings-surveys-list'>
+          <div *ngFor="let survey of allSurveys; let i = index" [ngClass]='{
+            "settings-surveys-item": true,
+            "active-survey-item": activeSurvey && allSurveys[i].ID === activeSurvey.ID
+          }' on-click="setActiveSurvey(i)">
+            {{survey.Title}}
+          </div>
+          <div class='settings-surveys-item new-item' on-click='configureSurvey("new", "Main")'>Создать новый опрос +</div>
+        </div>
+      </div>
+      <div class='settings-panel'>
+        <div class='settings-header'>Параметры</div>
+        <div class='settings-controller'>
+          <div *ngIf='!activeSurvey' class='settings-message'>
+            Выберите опрос для редактирования в меню слева или <span on-click='configureSurvey("new", "Main")' class='settings-new-survey'>создайте новый</span>.
+          </div>
+          <div *ngIf='activeSurvey' class='settings-survey-configuration'>
+            <div class='settings-survey-tabs'>
+              <div class='settings-page-tabs'>
+                <div class='settings-main-tabs'>
+                  <div on-click='setTab($event, "Main")' [ngClass]='{
+                    "settings-survey-tab": true,
+                    "active-tab": activeTab === "Main"
+                  }'>
+                    Основные
+                  </div>
+                  <div on-click='setTab($event, "Questions")' [ngClass]='{
+                    "settings-survey-tab": true,
+                    "active-tab": activeTab === "Questions",
+                    "disabled-tab": !activeSurvey.Title
+                  }'>
+                    Вопросы
+                  </div>
+                </div>
+                <div *ngIf="!questionBeingConfigured" class='settings-add-tabs'>
+                  <div on-click="deleteCurrentSurvey()" [ngClass]='{
+                    "settings-submit-tab": true,
+                    "disabled-tab": !activeSurvey.ID
+                  }'>
+                    Удалить опрос
+                  </div>
+                  <div on-click="submitCurrentSurvey()" [ngClass]='{
+                    "settings-submit-tab": true,
+                    "disabled-tab": !isChanged
+                  }'>
+                    Сохранить
+                  </div>
+                </div>
+              </div>
+              <div *ngIf='activeTab === "Main"' class='settings-survey-main'>
+                <label for='Title'>Название опроса</label>
+                <input on-keyup='checkIfChanged()' [(ngModel)]='tempSurvey.Title' type='text' name='Title' value='{{activeSurvey.Title}}'/>
+                <label for='Description'>Описание опроса</label>
+                <textarea on-keyup='checkIfChanged()' [(ngModel)]='tempSurvey.Description' name='Description'></textarea>
+                <label for='IsActive'>
+                  <input on-change='checkIfChanged()' [(ngModel)]='tempSurvey.IsActive' type='checkbox' name='IsActive' [attr.checked]='activeSurvey.IsActive === "1" ? "checked" : null'/>
+                  Сделать активным?
+                </label>
+              </div>
+            </div>
+            <div *ngIf='activeTab === "Questions"' class='settings-survey-main'>
+              <div (cdkDropListDropped)='dndQuestions($event)' cdkDropList [cdkDropListData]='tempSurvey.Questions' class='settings-survey-questions'>
+                <div cdkDrag [cdkDragDisabled]='questionBeingConfigured' *ngFor='let question of tempSurvey.Questions; let i = index' class='settings-survey-question'>
+                  <app-question-config (onQuestionSave)='pushQuestionToSurvey($event)' *ngIf='questionBeingConfigured && questionBeingConfigured === question.ID' [activeQuestion]='getActiveQuestion()'></app-question-config>
+                  <div class='settings-survey-question-row' *ngIf='!questionBeingConfigured || questionBeingConfigured !== question.ID'>
+                    <span class='settings-survey-question-row-general'>
+                      {{i + 1}}. {{question.Title}}<br>
+                      <span class='settings-survey-question-type'>({{question.Type}})</span>
+                    </span>
+                    <span>
+                      <img src='assets/edit.png' class='settings-edit-question' on-click='editQuestion(i)'/>
+                      <img src='assets/delete.png' class='settings-edit-question' on-click='deleteQuestion(i)'/>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf='!questionBeingConfigured' on-click='editQuestion("new")' class='settings-survey-question-new'>+ Добавить вопрос</div>
+              <app-question-config (onQuestionSave)='pushQuestionToSurvey($event)' [activeQuestion]='"new"' *ngIf='questionBeingConfigured && questionBeingConfigured === "new"'></app-question-config>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

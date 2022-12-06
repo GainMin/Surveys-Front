@@ -1,0 +1,89 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.auth-form {
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px 60px 80px;
+  box-sizing: border-box;
+  font-family: Hauss;
+  color: white;
+  border-radius: 20px;
+  margin-top: -20vh;
+  border: 2px solid #0049a5;
+}
+
+.auth-icon {
+  margin-bottom: 30px;
+}
+
+.auth-hello {
+  font-family: Hauss;
+  font-size: 20px;
+  text-align: center;
+  max-width: 300px;
+  color: black;
+  margin-bottom: 60px;
+}
+
+.auth-form input {
+  display: block;
+  margin-bottom: 40px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgb(220, 220, 220);
+  width: 300px;
+  line-height: 18px;
+  font-size: 18px;
+  font-family: Hauss;
+  padding-bottom: 10px;
+}
+
+.auth-form input:last-child {
+  margin: 0;
+}
+
+div[name='submit']{
+  width: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #0049a5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Hauss;
+  font-size: 18px;
+  line-height: 18px;
+  border: none;
+  border-radius: 10px;
+  border: 1px solid #0049a5;
+  cursor: pointer;
+}
+
+div[name='submit']:not(.unhoverable):hover {
+  background-color: white;
+  color: #0049a5;
+}
+
+div[name='submit'] img {
+  height: 15px;
+  width: 15px;
+}
+
+.auth-error {
+  color: red;
+  margin-bottom: 15px;
+  font-size: 14px;
+  max-width: 300px;
+  text-align: center;
+}

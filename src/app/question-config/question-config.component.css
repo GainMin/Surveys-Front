@@ -1,0 +1,74 @@
+.settings-question-editor {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.settings-question-editor label {
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.settings-question-editor input, .settings-question-editor textarea {
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid rgb(60, 60, 60);
+  padding: 10px 0;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  width: 50%;
+  min-width: 300px;
+  font-size: 16px;
+  font-family: Hauss;
+}
+
+.settings-question-editor input[type='text']:focus, .settings-question-editor textarea:focus {
+  border-color: #0064e3;
+}
+
+.settings-question-editor > select {
+  padding: 10px 0;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 14px;
+  font-family: Hauss;
+  width: 50%;
+  min-width: 300px;
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid rgb(60, 60, 60);
+}
+
+.settings-question-editor > select:focus {
+  border-color: #0064e3;
+}
+
+.settings-question-editor > select > option {
+  padding: 10px 0;
+}
+
+.settings-question-submit {
+  align-self: flex-end;
+  background-color: #0049a5;
+  padding: 10px;
+  border: 2px solid #0049a5;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 50px;
+}
+
+.settings-question-submit:hover {
+  background-color: white;
+  color: black;
+}
+
+.settings-question-addition {
+  font-size: 13px;
+  color: rgb(80, 80, 80);
+}
