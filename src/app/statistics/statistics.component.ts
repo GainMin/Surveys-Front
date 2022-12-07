@@ -121,12 +121,6 @@ export class StatisticsComponent {
     return arr.reduce((acc:any, e:any) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
   }
 
-  /*
-  public barChartData:ChartDataset[] = [{data: [1, 6, 5]}];
-  public barChartLabels:string[] = ['qwd', 'rthrth', 'wokwfekowef'];
-  */
-
-
   async getResults(id:string){
     const that = this;
     await that.apiReq({
@@ -176,7 +170,7 @@ export class StatisticsComponent {
     return new Promise((res:any, rej:any) => {
       const headers = {'Content-Type' : 'text/plain; charset=UTF-8'};
 
-      that.http.post<any>('http://176.113.83.241/_api', data, { headers }).subscribe(async (dt:any) => {
+      that.http.post<any>('http://176.113.83.241/_api/', data, { headers }).subscribe(async (dt:any) => {
         await cb(dt);
         res(dt);
       });

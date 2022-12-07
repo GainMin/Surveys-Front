@@ -49,7 +49,7 @@ export class AuthComponent {
 
       const headers = {};
 
-      this.http.post<any>('http://176.113.83.241/_api', JSON.stringify(data), { headers }).subscribe(data => {
+      this.http.post<any>('http://176.113.83.241/_api/', JSON.stringify(data), { headers }).subscribe(data => {
         if (!data || data.error){
           that.toggleLoading(that);
           that.errorMessage = "Такой пользователь не найден в системе. Попробуйте снова!"
