@@ -136,7 +136,7 @@ export class MainpageComponent {
     return new Promise((res:any, rej:any) => {
       const headers = {'Content-Type' : 'text/plain; charset=UTF-8'};
 
-      that.http.post<any>('http://localhost/api', data, { headers }).subscribe(async (dt:any) => {
+      that.http.post<any>('http://176.113.83.241/api', data, { headers }).subscribe(async (dt:any) => {
         await cb(dt);
         res(true);
       });
