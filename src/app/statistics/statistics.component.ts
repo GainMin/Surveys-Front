@@ -176,7 +176,7 @@ export class StatisticsComponent {
     return new Promise((res:any, rej:any) => {
       const headers = {'Content-Type' : 'text/plain; charset=UTF-8'};
 
-      that.http.post<any>('http://176.113.83.241:3000', data, { headers }).subscribe(async (dt:any) => {
+      that.http.post<any>('http://176.113.83.241/_api', data, { headers }).subscribe(async (dt:any) => {
         await cb(dt);
         res(dt);
       });
